@@ -9,6 +9,7 @@
 */
 import PropTypes from "prop-types";
 import {ReactElement} from "react";
+import { motion } from 'framer-motion'
 
 /**
  * Text input field.
@@ -17,10 +18,6 @@ import {ReactElement} from "react";
  *   The props object.
  */
 export function TextInput(props: any): ReactElement {
-
-    const inputClasses: string = `w-full px-1 py-2 rounded bg-white focus:outline-none focus:ring-2 focus:ring-purple-600 border ${
-        props.errorMsg ? "border-red-500" : "border-transparent"
-    } shadow-md focus:border-transparent`;
 
     // Return statement.
     return (
@@ -31,11 +28,10 @@ export function TextInput(props: any): ReactElement {
                 onChange={props.onChange}
                 name={props.name}
                 placeholder={props.placeholder || ""}
-                className={inputClasses}
             />
             {/* Shor error message if given. */}
             {props.errorMsg && (
-                <div className="text-red-500">{props.errorMsg}</div>
+                <motion.div initial={{ opacity: 0, y: -20 }} exit={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="form-alert-min">{props.errorMsg}</motion.div>
             )}
         </div>
     );

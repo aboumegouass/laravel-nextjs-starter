@@ -10,30 +10,32 @@
 
 import PropTypes from "prop-types";
 import {ReactElement} from "react";
+import { motion } from 'framer-motion'
 
-export function Alert({type, children}): ReactElement {
+export function Alert({type, children, additionalClasses = ''}): ReactElement {
     // Determine the classes of the alert depending ong the type given as a prop.
     const alertType = (): string => {
         switch (type) {
             case "danger":
-                return "bg-red-300 text-red-500";
+                return "site-alert danger";
             case "warning":
-                return "bg-yellow-300 text-yellow-500";
+                return "site-alert warning";
             case "success":
-                return "bg-green-300 text-green-500";
+                return "site-alert success";
             default:
-                return "bg-red-300 text-red-500";
+                return "site-alert danger";
         }
     };
 
     const alertTypeClasses: string = alertType();
-    const classes = `w-full rounded flex justify-center items-center px-2 py-1 ${alertTypeClasses}`;
+    const classes = `${alertTypeClasses} ${additionalClasses}`;
 
     // Returns statement.
-    return <div className={classes}>{children}</div>;
+    return <motion.div initial={{ opacity: 0, y: -40 }} exit={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} className={classes}><p className="text">{children}</p></motion.div>;
 }
 
 Alert.propTypes = {
     children: PropTypes.any,
     type: PropTypes.string.isRequired,
+    additionalClasses: PropTypes.string
 };

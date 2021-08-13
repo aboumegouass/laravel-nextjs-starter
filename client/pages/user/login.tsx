@@ -12,9 +12,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "@/store/auth/authActions";
 import { UserValidator } from "@/services/UserValidator";
-import { Card } from "@/components/Card/Card";
 import { TextInput } from "@/components/Form/FormElement";
-import { H1 } from "@/components/Typography/Headers";
 import { PrimaryButton } from "@/components/Button/Button";
 import { Alert } from "@/components/Alert/Alert";
 import { useRouter } from "next/router";
@@ -94,70 +92,63 @@ const Login = (props: any): ReactElement => {
 
     // Return statement.
     return (
-        <div className="w-screen h-screen relative">
-            <div className="absolute w-full md:w-3/5 lg:w-1/3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Card
-                    additionalInnerClasses="justify-center items-center"
-                    additionalWrapperClasses="bg-gray-100"
-                >
-                    <>
-                        {props.loginError && (
-                            <Alert type="danger">{props.loginError}</Alert>
-                        )}
-                        {/* The main Header */}
-                        <H1 withMargin={true} center={true}>
-                            Login
-                        </H1>
+        <div className="app-login-card">
+            {props.loginError && (
+                <Alert type="danger">{props.loginError}</Alert>
+            )}
+            {/* The main Header */}
+            <div className="app-header">
+                <h3 className="title">تسجيل الدخول</h3>
+            </div>
+            {/* Email */}
+            <label className="label-name" htmlFor="">البريد الإلكتروني</label>
 
-                        {/* Email */}
-                        <TextInput
-                            type="text"
-                            value={formData.email}
-                            placeholder="Your email address..."
-                            onChange={(e) => {
-                                handleInputChange(e);
-                            }}
-                            name="email"
-                            errorMsg={formData.emailError}
-                        />
+            <TextInput
+                type="text"
+                value={formData.email}
+                placeholder="البريد الإلكتروني"
+                onChange={(e) => {
+                    handleInputChange(e);
+                }}
+                name="email"
+                errorMsg={formData.emailError}
+            />
+            <label className="label-name" htmlFor="">كلمة المرور</label>
+            {/* Password */}
+            <TextInput
+                type="password"
+                value={formData.password}
+                placeholder="كلمة المرور"
+                onChange={(e) => {
+                    handleInputChange(e);
+                }}
+                name="password"
+                errorMsg={formData.passwordError}
+            />
 
-                        {/* Password */}
-                        <TextInput
-                            type="password"
-                            value={formData.password}
-                            placeholder="Your password..."
-                            onChange={(e) => {
-                                handleInputChange(e);
-                            }}
-                            name="password"
-                            errorMsg={formData.passwordError}
-                        />
+            {/* Submit Button */}
+            <PrimaryButton
+                onClick={() => {
+                    submit();
+                }}
+                additionalClasses="butt-sm"
+            >
+                <SmallSpinner show={props.loading} />
+                            تسجيل الدخول
+            </PrimaryButton>
 
-                        {/* Submit Button */}
-                        <PrimaryButton
-                            onClick={() => {
-                                submit();
-                            }}
-                        >
-                            <SmallSpinner show={props.loading} />
-                            Login
-                        </PrimaryButton>
-
-                        {/* Additional links. */}
-                        <div className="w-full flex justify-between mt-3 text-blue-500">
-                            <Link href="/user/register">
-                                <a className="text-xs underline">
-                                    No Account yet?
-                                </a>
-                            </Link>
-                            <Link href="/user/password/forgot">
-                                <a className="text-xs underline">
-                                    Forgot password?
-                                </a>
-                            </Link>
-                        </div>
-                    </>
-                </Card>
+            {/* Additional links. */}
+            <div className="d-flex justify-content-between mt-3 app-login-footer">
+                <Link href="/user/register">
+                    <a className="">
+                        لا أملك حساب
+                    </a>
+                </Link>
+                <Link href="/user/password/forgot">
+                    <a className="">
+                        نسيت كلمة المرور
+                    </a>
+                </Link>
             </div>
         </div>
     );

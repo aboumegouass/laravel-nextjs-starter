@@ -6,30 +6,28 @@
 | The home page of your application.
 |
 */
+import Head from "next/head";
 import Link from "next/link";
-import { H1 } from "./../components/Typography/Headers";
+import SubNav from "@/layouts/contents/SubNav";
+import Posts from "@/layouts/contents/Posts";
+import Communities from "@/layouts/Communities";
 
-export default function Home() {
+function Home() {
     return (
         <>
-            <div className="flex w-screen h-screen items-center justify-center">
-                <div className="w-1/2">
-                    <H1 center={true} withMargin={true}>
-                        Welcome to the Laravel Next.js Starter Kit
-                    </H1>
-
-                    <p className="text-center mb-4 mt-12">
-                        What do you want to do?
-                    </p>
-                    <div className="flex justify-between items-center text-blue-500 underline">
-                        <Link href="https://github.com/NiclasTimmeDev/laravel-nextjs-starter">
-                            <a target="_blank">Documentation</a>
-                        </Link>
-                        <Link href="/user/login">Login</Link>
-                        <Link href="/user/register">Register</Link>
-                    </div>
+            <Head>
+                <title>فارزة - مجتمع للأسئلة والأجوبة</title>
+            </Head>
+            <div className="app-site-content">
+                <div className="p-3">
+                    <SubNav />
+                    <Communities />
+                    <Posts />
                 </div>
+
             </div>
         </>
     );
 }
+
+export default Home;
